@@ -1,0 +1,107 @@
+
+<?php
+require_once '../connection.php';
+$result= $connection->query('select code,fname,lname,address,gender,email,password,name,image from students left join departments on students.dept_num=departments.number');
+$students=$result->fetchAll(PDO::FETCH_ASSOC);
+include_once '../aside.php';
+?>
+
+
+    <div class="breadcrumbs">
+        <div class="breadcrumbs-inner">
+            <div class="row m-0">
+                <div class="col-sm-4">
+                    <div class="page-header float-left">
+                        <div class="page-title">
+                            <h1>All Students</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="page-header float-right">
+                        <div class="page-title">
+                            <ol class="breadcrumb text-right">
+                                <li><a href="index.php">Student</a></li>
+                                <li><a href="add.php">Add Student</a></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">Students</strong>
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">code</th>
+                                    <th scope="col">fname</th>
+                                    <th scope="col">lname</th>
+                                    <th scope="col">address</th>
+                                    <th scope="col">gender</th>
+                                    <th scope="col">email</th>
+                                    <th scope="col">password</th>
+                                    <th scope="col">department</th>
+                                    <th scope="col">image</th>
+                                    <th scope="col"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php  foreach ($students as $student){
+                                    $code=$student['code'];
+                                    $image=$student['image'];
+                                    ?>
+                                <tr>
+                                    <td><?= $student['code'] ?></td>
+                                    <td><?= $student['fname'] ?></td>
+                                    <td><?= $student['lname'] ?></td>
+                                    <td><?= $student['address'] ?></td>
+                                    <td><?= $student['gender'] ?></td>
+                                    <td><?= $student['email'] ?></td>
+                                    <td><?= $student['password'] ?></td>
+                                    <td><?= $student['name'] ?></td>
+                                    <td><img src="../uploads/images/<?=$code.".".$image?>"></td>
+                                    <td>
+                                        <a href="show.php?code=<?=$code?>" style="color: lightblue">show</a>
+                                        <a href="edit.php?code=<?=$code?>" style="color: lightgreen">edit</a>
+                                        <a href="delete.php?code=<?=$code?>" style="color: red">delete</a>
+                                    </td>
+                                </tr>
+                                <?php } ?>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div><!-- .animated -->
+    </div><!-- .content -->
+
+    <div class="clearfix"></div>
+
+   <?php include_once '../footer.php'?>
+
+</div><!-- /#right-panel -->
+
+<!-- Right Panel -->
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
+<script src="assets/js/main.js"></script>
+
+
+</html>
